@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+    <!-- <meta charset="utf-8"> --!>
+    <title>Addops</title>
+</head>
+<body>
+    <div id="main" style="height:500px;width:1300px"></div>
+    <!-- <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script> --!>
+    <script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main')); 
+
+
+var option = {
+    title : {
+        text: '{{ domain }}',
+        subtext: '每分钟PV请求次数(次/分)'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+ //       data:['{{today}}','{{date_1_ago}}','{{date_2_ago}}']
+        data:['{{today}}','{{date_1_ago}}','{{date_2_ago}}','a week ago']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : true,
+            data : [{% for time in time_list %} '{{ time }}', {% endfor %} ]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+	    axisLabel: {
+                formatter: '{value} 次/分'
+            }
+        }
+    ],
+    series : [
+        {
+            name:'{{date_1_ago}}',
+            type:'line',
+            data:[{% for pv in pv_list %} '{{ pv }}', {% endfor %}]
+        },
+        {
+            name:'{{date_2_ago}}',
+            type:'line',
+            data:[{% for pv1 in pv_list_1day %} '{{ pv1 }}', {% endfor %}]
+        },
+        {
+            name:'a week ago',
+            type:'line',
+            data:[{% for pv6 in pv_list_6day %} '{{ pv6 }}', {% endfor %}]
+        }
+
+    ]
+};
+
+        myChart.setOption(option); 
+    </script>
+
+</body>
