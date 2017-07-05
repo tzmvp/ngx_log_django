@@ -96,35 +96,3 @@ def Index(request):
 	      domain_list.append(R)
 
     return render(request,'index.html',{'domain_list':domain_list,'day':day})
-
-def Test(request):
-
-    pv_count_file = '/home/tzmvp/ngx_logspider/overwrite.log'
-    pv_file = open(pv_count_file,'r')
-    read_pv = pv_file.readlines()
-    day = str(get_day_of_day(-1))
-
-    domain_list = []
-
-    for i in read_pv:
-	      res = i.split('\n')[0]
-	      R = res.split(',')
-	      domain_list.append(R)
-
-    return render(request,'test_index.html',{'domain_list':domain_list,'day':day})
-
-def Test_table(request):
-
-    pv_count_file = '/home/tzmvp/ngx_logspider/overwrite.log'
-    pv_file = open(pv_count_file,'r')
-    read_pv = pv_file.readlines()
-    day = str(get_day_of_day(-1))
-
-    domain_list = []
-
-    for i in read_pv:
-	      res = i.split('\n')[0]
-	      R = res.split(',')
-	      domain_list.append(R)
-
-    return render(request,'test_table.html',{'domain_list':domain_list,'day':day})
